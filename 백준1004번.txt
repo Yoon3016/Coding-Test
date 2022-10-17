@@ -1,0 +1,41 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main()
+{
+	int T;
+	int x1, y1, x2, y2;
+	int n;
+	int cx, cy, r;
+	int tr1, tr2;
+	int count[50] = { 0 };
+	scanf("%d", &T);
+
+	for (int k = 0; k < T; k++)
+	{
+		scanf("%d%d%d%d", &x1, &y1, &x2, &y2);
+		scanf("%d", &n);
+		for (int i = 0; i < n; i++)
+		{
+			scanf("%d%d%d", &cx, &cy, &r);
+			tr1 = ((x1 - cx) * (x1 - cx)) + ((y1 - cy) * (y1 - cy));
+			tr2 = ((x2 - cx) * (x2 - cx)) + ((y2 - cy) * (y2 - cy));
+			if (!(r * r > tr1 && r * r > tr2))
+			{
+				if (r * r > tr1)
+				{
+					count[k]++;
+				}
+				if (r * r > tr2)
+				{
+					count[k]++;
+				}
+			}
+		}
+	}
+	for (int i = 0; i < T; i++)
+	{
+		printf("%d\n", count[i]);
+	}
+	return 0;
+}
