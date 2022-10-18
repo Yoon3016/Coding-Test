@@ -1,0 +1,82 @@
+#include<iostream>
+
+using namespace std;
+
+class a {
+
+public:
+	int* arr;
+	int Count=5;
+	void Push(int count,int num) {
+		arr[count] = num;
+	};
+	void Pop(int count) {
+		cout << "    Pop << " << arr[count] << endl;
+	};
+};
+
+void main()
+{
+	a cls;
+	int num;
+	int size;
+	int Exit = 0;
+	cout << "스택 크키 입력 << ";
+	cin >> size;
+	while (size < 5)
+	{
+		cout << "5이상 입력";
+		cin >> size;
+	}
+	cls.arr = new int[size];
+	cout << "5개 수 입력\n";
+	for (int i = 0; i < 5; i++)
+	{
+		cin >> num;
+		cls.Push(i, num);
+	}
+	while (Exit != 3)
+	{
+		cout << " 현재 스택 상태 =";
+		for (int i = 0; i < cls.Count; i++) {
+			cout << cls.arr[i] << " ";
+		}
+		cout << "  \n  1: Push  2: Pop  3: 종료"<<endl;
+		cin >> Exit;
+	
+		switch (Exit)
+		{
+		case 1:
+			if (cls.Count < size)
+			{
+				cout << "    Push << ";
+				cin >> num;
+				cls.Push(cls.Count, num);
+				cls.Count++;
+			}
+			else
+			{
+				cout << "스택 꽉참 ";
+			}
+			break;
+		case 2:
+			if (cls.Count>0)
+			{
+				cls.Count--;
+				cls.Pop(cls.Count);
+			}
+			else
+			{
+				cout << "스택 빔 ";
+			}
+			break;
+		case 3:
+			cout << "종료";
+			break;
+		}
+
+	}
+	delete[] cls.arr;
+
+
+}
