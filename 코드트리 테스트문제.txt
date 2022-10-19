@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int main()
+{
+	int n, k;
+	int point_x;
+	int arr[100];
+	int Exit = 0;
+	scanf("%d %d", &n, &k);
+	point_x = k - 1;
+	for (int i = 0; i < k; i++)
+	{
+		arr[i] = n;
+	}
+	while (Exit == 0)
+	{
+		for (int i = 0; i < k; i++)
+		{
+			printf("%d", arr[i]);
+		}
+		if (arr[point_x] != 0)
+		{
+			arr[point_x]--;
+				while (arr[point_x] == 0)
+				{
+					arr[point_x] = n;
+					point_x--;
+					arr[point_x]--;
+					if (arr[0] == 0)
+					{
+						Exit = 1;
+						break;
+					}
+				}
+				point_x = k - 1;
+		}
+		printf("\n");
+	}
+	return 0;
+}
