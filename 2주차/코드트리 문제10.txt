@@ -1,0 +1,86 @@
+n * m크기의 직사각형에 숫자 1부터 순서대로 증가시키며 달팽이 모양으로 채우는 코드를 작성해보세요.
+
+달팽이 모양이란 왼쪽 위 모서리에서 시작해서, 아래, 오른쪽, 위쪽, 왼쪽 순서로 더 이상 채울 곳이 없을 때까지 회전하는 모양을 의미합니다.
+
+n : 행(row), m : 열(column)을 의미합니다.
+
+
+
+입력 형식
+n과 m이 공백을 사이에 두고 주어집니다.
+
+1 ≤ n, m ≤ 100
+출력 형식
+숫자로 채워진 완성된 형태의 n * m 크기의 사각형을 출력합니다.
+
+(숫자끼리는 공백을 사이에 두고 출력합니다.)
+
+입출력 예제
+예제1
+입력:
+
+4 4
+출력:
+
+1 12 11 10
+2 13 16 9 
+3 14 15 8 
+4 5 6 7
+
+
+----------------------------
+
+#include <iostream>
+using namespace std;
+int limit_check(int x, int y, int maxsize_x, int maxsize_y);
+
+int main()
+{
+	int n, m;
+	int dir_x[4] = { 0,1,0,-1 };
+	int dir_y[4] = { -1,0,1,0 };
+	int dir = 2;
+	int arr[100][100] = { 0 };
+	int x = 0;
+	int y = 0;
+	cin >> n >> m;
+	arr[0][0] = 1;
+	for (int i = 0; i < n * m - 1; i++)
+	{
+		if (limit_check(x + dir_x[dir], y + dir_y[dir], n, m))
+		{
+			if (arr[y + dir_y[dir]][x + dir_x[dir]] == 0)
+			{
+				x = x + dir_x[dir];
+				y = y + dir_y[dir];
+				arr[y][x] = i + 2;
+
+			}
+			else
+			{
+				dir = (dir + 3) % 4;
+				i--;
+			}
+		}
+		else
+		{
+			dir = (dir + 3) % 4;
+			i--;
+		}
+	}
+	for (int t1 = 0; t1 < n; t1++)
+	{
+		for (int t2 = 0; t2 < m; t2++)
+		{
+			printf("%d ", arr[t1][t2]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+int limit_check(int x, int y, int n, int m)
+{
+	if (x >= 0 && x < m && y >= 0 && y < n)return true;
+	else return false;
+}
