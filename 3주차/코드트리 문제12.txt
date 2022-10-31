@@ -1,0 +1,86 @@
+n * n크기의 직사각형의 가운데에서 시작하여 오른쪽, 위, 왼쪽, 아래 순서로 더 이상 채울 곳이 없을 때까지 회전하며 숫자를 적어나가려고 합니다. 숫자는 1부터 시작한다고 했을 때, 다음과 같은 모양으로 숫자들을 쭉 채우는 코드를 작성해보세요.
+
+
+
+입력 형식
+첫 번째 줄에 크기를 나타내는 n이 주어집니다. 주어지는 n은 항상 홀수라고 가정해도 좋습니다.
+
+1 ≤ n ≤ 100
+출력 형식
+숫자로 채워진 완성된 형태의 n * n 크기의 사각형을 출력합니다.
+(숫자끼리는 공백을 사이에 두고 출력합니다.)
+
+입출력 예제
+예제1
+입력:
+
+3
+출력:
+
+5 4 3
+6 1 2
+7 8 9
+
+--------------------------------------------
+
+
+#include <iostream>
+using namespace std;
+
+int limit_check(int x, int y, int maxsize_n);
+
+int main()
+{
+	int n;
+	int dir_x[4] = { 0,1,0,-1 };
+	int dir_y[4] = { -1,0,1,0 };
+	int dir = 1;
+	int tempdir = 0;
+	int arr[100][100] = { 0 };
+	int x = 0;
+	int y = 0;
+	int count = 2;
+	int Exit = 0;
+	cin >> n;
+	x = n / 2;
+	y = n / 2;
+
+	arr[x][y] = 1;
+	while(Exit==0)
+	{
+		if (limit_check(x + dir_x[dir], y + dir_y[dir], n))
+		{
+			if (arr[y + dir_y[dir]][x + dir_x[dir]] == 0)
+			{
+				x = x + dir_x[dir];
+				y = y + dir_y[dir];
+				arr[y][x] = count;
+				count++;
+				if (arr[y + dir_y[tempdir]][x + dir_x[tempdir]] == 0)
+				{
+					dir = tempdir;
+					tempdir= (tempdir + 3) % 4;
+				}
+			}
+		}
+		else
+		{
+			Exit = 1;
+		}
+	}
+	for (int t1 = 0; t1 < n; t1++)
+	{
+		for (int t2 = 0; t2 < n; t2++)
+		{
+			printf("%d ", arr[t1][t2]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+int limit_check(int x, int y, int maxsize_n)
+{
+	if (x >= 0 && x < maxsize_n && y >= 0 && y < maxsize_n)return true;
+	else return false;
+}
